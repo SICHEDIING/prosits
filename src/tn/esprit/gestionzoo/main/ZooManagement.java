@@ -26,7 +26,7 @@ public class ZooManagement {
                 myZoo.name="garena";
                 myZoo.city="nabeul";
                 myZoo.animals[0]=lion;*/
-        Zoo myZoo = new Zoo("garena","nabeul");
+        /*Zoo myZoo = new Zoo("garena","nabeul");
         Animal dog =new Animal("wahch","fakroun",5,true);
         myZoo.displayZoo();
 
@@ -35,7 +35,12 @@ public class ZooManagement {
         System.out.println(myZoo.toString());
         System.out.println(dog);
 
-       System.out.println(dog.toString());
+       System.out.println(dog.toString());*/
+
+        Zoo.Dolphin dolphin = new Zoo.Dolphin("Océan", 25.5f);
+        Zoo.Penguin penguin = new Zoo.Penguin("Antarctique", 15.0f);
+        Zoo.Terrestrial terrestrial = new Zoo.Terrestrial(4);
+
 
 
     }
