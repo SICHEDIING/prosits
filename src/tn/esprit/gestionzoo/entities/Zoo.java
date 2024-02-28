@@ -1,166 +1,197 @@
 package tn.esprit.gestionzoo.entities;
 
-public class Zoo {
+public class ZOO {
     private Animal[] animals;
+    private static Aquatic[] aquaticAnimals;
     private String name;
     private String city;
-    private final int nbrCages = 25;
-    private int nbrAnimals;
+    private final int nbrCages;
+    private int animalCount;
+    private static int aquaticAnimalCount;
+    private int searchIndex;
 
-    public Zoo(String name, String city) {
-        animals = new Animal[nbrCages];
+    public ZOO(String name, String city, int nbrCages) {
         this.name = name;
         this.city = city;
+        this.nbrCages = nbrCages;
+        animals = new Animal[nbrCages];
+        aquaticAnimals = new Aquatic[10];
+        animalCount = 0;
+        aquaticAnimalCount = 0;
+        searchIndex = -1;
     }
 
-    public void displayZoo() {
-        System.out.println("Name: " + name + ", City: " + city + ", N° Cages: " + nbrCages);
-    }
-
-    @Override
-    public String toString() {
-        return "Name: " + name + ", City: " + city + ", N° Cages: " + nbrCages;
-    }
-
-    public boolean addAnimal(Animal animal) {
-        if (searchAnimal(animal) != -1) {
-            return false;
-        }
-        if (!isZooFull()) {
-            animals[nbrAnimals] = animal;
-            nbrAnimals++;
-            return true;
-        }
-        return false;
-    }
-
-    public int searchAnimal(Animal animal) {
-        for (int i = 0; i < nbrAnimals; i++) {
-            if (animal.getName().equals(animals[i].getName())) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    public boolean removeAnimal(Animal animal) {
-        int indexAnimal = searchAnimal(animal);
-        if (indexAnimal == -1) {
-            return false;
-        }
-        for (int i = indexAnimal; i < nbrAnimals - 1; i++) {
-            animals[i] = animals[i + 1];
-        }
-        animals[nbrAnimals - 1] = null;
-        nbrAnimals--;
-        return true;
-    }
-
-    public boolean isZooFull() {
-        return nbrAnimals == nbrCages;
-    }
-
-    public static Zoo compareZoo(Zoo z1, Zoo z2) {
-        if (z1.getNbrAnimals() > z2.getNbrAnimals()) {
-            return z1;
-        } else {
-            return z2;
-        }
+    public int getAnimalCount() {
+        return animalCount;
     }
 
     public Animal[] getAnimals() {
         return animals;
     }
 
-    public String getName() {
-        return name;
+    public boolean addAnimal(Animal animal) {
+        if (!isZooFull()) {
+            animals[animalCount] = animal;
+            animalCount++;
+            return true;
+        }
+        return false;
     }
 
-    public String getCity() {
-        return city;
+    public void displayAnimals() {
+        System.out.println("Animals in the Zoo:");
+        for (int i = 0; i < animalCount; i++) {
+            System.out.println(animals[i]);
+        }
     }
 
-    public int getNbrCages() {
-        return nbrCages;
+    public int searchAnimal(Animal animal) {
+        for (int i = 0; i < animalCount; i++) {
+            if (animals[i].getName().equals(animal.getName())) {
+                searchIndex = i;
+                return searchIndex;
+            }
+        }
+        searchIndex = -1;
+        return searchIndex;
     }
 
-    public int getNbrAnimals() {
-        return nbrAnimals;
+    public boolean isZooFull() {
+        return animalCount == nbrCages;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-}
-public static class Aquatic {
-    protected String habitat;
-
-    public Aquatic(String habitat) {
-        this.habitat = habitat;
-    }
-
-    @Override
-    public String toString() {
-        return "Aquatic{" +
-                "habitat='" + habitat + '\'' +
-                '}';
-    }
-}
-
-// Classe pour les dauphins
-public static class Dolphin extends Aquatic {
-    protected float swimmingSpeed;
-
-    public Dolphin(String habitat, float swimmingSpeed) {
-        super(habitat);
-        this.swimmingSpeed = swimmingSpeed;
+    public void displayZoo() {
+        System.out.println("Zoo Name: " + name);
+        System.out.println("City: " + city);
+        System.out.println("Number of Cages: " + nbrCages);
     }
 
     @Override
     public String toString() {
-        return "Dolphin{" +
-                "habitat='" + habitat + '\'' +
-                ", swimmingSpeed=" + swimmingSpeed +
+        return "Zoo{" +
+                "name='" + name + '\'' +
+                ", city='" + city + '\'' +
+                ", nbrCages=" + nbrCages +
                 '}';
     }
-}
 
-// Classe pour les pingouins
-public static class Penguin extends Aquatic {
-    protected float swimmingDepth;
-
-    public Penguin(String habitat, float swimmingDepth) {
-        super(habitat);
-        this.swimmingDepth = swimmingDepth;
+    public void displayAquaticAnimalsSwim() {
+        for (int i = 0; i < aquaticAnimalCount; i++) {
+            System.out.println(aquaticAnimals[i]);
+        }
     }
 
-    @Override
-    public String toString() {
-        return "Penguin{" +
-                "habitat='" + habitat + '\'' +
-                ", swimmingDepth=" + swimmingDepth +
-                '}';
+    // Classe pour les animaux aquatiques
+    public abstract class Aquatic {
+        protected String habitat;
+
+        public Aquatic(String habitat) {
+            this.habitat = habitat;
+        }
+
+        public abstract void swim();
+
+        @Override
+        public String toString() {
+            return "Aquatic{" +
+                    "habitat='" + habitat + '\'' +
+                    '}';
+        }
     }
-}
 
-// Classe pour les animaux terrestres
-public static class Terrestrial {
-    protected int nbrLegs;
+    // Classe pour les dauphins
+    public class Dolphin extends Aquatic {
+        protected float swimmingSpeed;
 
-    public Terrestrial(int nbrLegs) {
-        this.nbrLegs = nbrLegs;
+        public Dolphin(String habitat, float swimmingSpeed) {
+            super(habitat);
+            this.swimmingSpeed = swimmingSpeed;
+        }
+
+        @Override
+        public void swim() {
+
+        }
+
+        @Override
+        public String toString() {
+            return "Dolphin{" +
+                    "habitat='" + habitat + '\'' +
+                    ", swimmingSpeed=" + swimmingSpeed +
+                    '}';
+        }
     }
 
-    @Override
-    public String toString() {
-        return "Terrestrial{" +
-                "nbrLegs=" + nbrLegs +
-                '}';
-    }
-}
+    // Classe pour les pingouins
+    public abstract class Penguin extends Aquatic {
+        protected float swimmingDepth;
 
+        public Penguin(String habitat, float swimmingDepth) {
+            super(habitat);
+            this.swimmingDepth = swimmingDepth;
+        }
+
+        @Override
+        public String toString() {
+            return "Penguin{" +
+                    "habitat='" + habitat + '\'' +
+                    ", swimmingDepth=" + swimmingDepth +
+                    '}';
+        }
+    }
+
+    // Classe pour les animaux terrestres
+    public static class Terrestrial {
+        protected int nbrLegs;
+
+        public Terrestrial(int nbrLegs) {
+            this.nbrLegs = nbrLegs;
+        }
+
+        @Override
+        public String toString() {
+            return "Terrestrial{" +
+                    "nbrLegs=" + nbrLegs +
+                    '}';
+        }
+    }
+    public float maxPenguinSwimmingDepth() {
+        float maxDepth = 0.0f; // Initialize the maximum depth to 0
+
+        for (int i = 0; i < animalCount; i++) {
+            if (animals[i] instanceof Penguin) {
+                Penguin penguin = (Penguin) animals[i];
+                if (penguin.swimmingDepth > maxDepth) {
+                    maxDepth = penguin.swimmingDepth;
+                }
+            }
+        }
+
+        return maxDepth;
+    }
+
+    public static void addAquaticAnimal(Aquatic aquatic) {
+        if (aquaticAnimalCount < 10) {
+            aquaticAnimals[aquaticAnimalCount] = aquatic;
+            aquaticAnimalCount++;
+            System.out.println("Aquatic animal added successfully.");
+        } else {
+            System.out.println("Aquatic animals capacity reached. Cannot add more animals.");
+        }
+    }
+    public void displayNumberOfAquaticsByType() {
+        int dolphinCount = 0;
+        int penguinCount = 0;
+
+        for (int i = 0; i < animalCount; i++) {
+            if (animals[i] instanceof Dolphin) {
+                dolphinCount++;
+            } else if (animals[i] instanceof Penguin) {
+                penguinCount++;
+            }
+        }
+
+        System.out.println("Number of Dolphins: " + dolphinCount);
+        System.out.println("Number of Penguins: " + penguinCount);
+    }
 }

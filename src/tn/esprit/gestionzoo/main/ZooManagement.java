@@ -1,47 +1,46 @@
 package tn.esprit.gestionzoo.main;
-import tn.esprit.gestionzoo.entities.Animal;
 
-import tn.esprit.gestionzoo.entities.Zoo;
+import tn.esprit.gestionzoo.entities.Animal;
+import tn.esprit.gestionzoo.entities.ZOO;
+
 import java.util.Scanner;
 
 public class ZooManagement {
     public static void main(String[] args) {
+        int nbrCages;
+        String zooName;
+        System.out.println("Enter the name of the zoo:");
+        Scanner k = new Scanner(System.in);
+        zooName = k.nextLine();
+        System.out.println("Enter the number of cages:");
+        nbrCages = k.nextInt();
+        System.out.println(zooName + " contains " + nbrCages + " cages.");
 
-               /* int nbrCages=20;
-                String zooName="myZoo";
-                System.out.println(zooName+" contient "+nbrCages+"cages");
-                System.out.println("donner le nom du zoo");
-                Scanner k=new Scanner(System.in);
-                zooName=k.nextLine();
-                System.out.println("donner le nombres des cages ");
-                nbrCages=k.nextInt();
-                System.out.println(zooName+" contient "+nbrCages+"  cages");*/
-              /* tn.esprit.gestionzoo.entities.Animal lion = new tn.esprit.gestionzoo.entities.Animal();
-                lion.name ="chmaykel";
-                lion.age= 4;
-                lion.family="wahch";
-                lion.isMammal= true;
-                tn.esprit.gestionzoo.entities.Zoo myZoo =new tn.esprit.gestionzoo.entities.Zoo();
-                myZoo.nbrCages=25;
-                myZoo.name="garena";
-                myZoo.city="nabeul";
-                myZoo.animals[0]=lion;*/
-        /*Zoo myZoo = new Zoo("garena","nabeul");
-        Animal dog =new Animal("wahch","fakroun",5,true);
+        ZOO myZoo = new ZOO(zooName, "ariana", nbrCages);
+        Animal lion = new Animal("kkkk", "firas", 3, true);
+        Animal chien = new Animal("uuiu", "chadi", 5, false);
+        Animal gazelle = new Animal("gggj", "wral", 4, false);
+        Animal fakrounnnn = new Animal("jonnnnnger", "khaaaalti", 4, false);
+
         myZoo.displayZoo();
-
         System.out.println(myZoo);
+        System.out.println(lion);
 
-        System.out.println(myZoo.toString());
-        System.out.println(dog);
+        myZoo.addAnimal(lion);
+        myZoo.addAnimal(chien);
+        myZoo.addAnimal(gazelle);
 
-       System.out.println(dog.toString());*/
+        myZoo.displayAnimals();
 
-        Zoo.Dolphin dolphin = new Zoo.Dolphin("Océan", 25.5f);
-        Zoo.Penguin penguin = new Zoo.Penguin("Antarctique", 15.0f);
-        Zoo.Terrestrial terrestrial = new Zoo.Terrestrial(4);
+        int h = myZoo.searchAnimal(gazelle);
+        System.out.println("Search result for gazelle: " + h);
 
+        ZOO.Dolphin dolphin = myZoo.new Dolphin("Océan", 25.5f);
+        ZOO.Penguin penguin = myZoo.new Penguin("Antarctique", 15.0f);
 
+        myZoo.addAquaticAnimal(dolphin);
+        myZoo.addAquaticAnimal(penguin);
 
+        myZoo.displayAquaticAnimalsSwim();
     }
 }

@@ -6,10 +6,40 @@ public class Animal {
     private int age;
     private boolean isMammal;
 
-    public Animal(String family, String name, int age, boolean isMammal) {
+    public Animal(String family, String name, int age, boolean isMammal)
+    {
         this.family = family;
+        setName(name);
+        setAge(age);
+        this.isMammal = isMammal;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        if (name.isBlank())
+            System.out.println("ne contient pas des caractéres ");
         this.name = name;
-        this.age = age;
+    }
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        if (age >= 0) {
+            this.age = age;
+        } else {
+            System.out.println("L'âge de l'animal ne peut pas être négatif.");
+        }
+    }
+
+    public boolean isMammal() {
+        return isMammal;
+    }
+
+    public void setMammal(boolean isMammal) {
         this.isMammal = isMammal;
     }
 
@@ -21,37 +51,7 @@ public class Animal {
                 ", age=" + age +
                 ", isMammal=" + isMammal +
                 '}';
+
     }
 
-    public String getFamily() {
-        return family;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public boolean isMammal() {
-        return isMammal;
-    }
-
-    public void setFamily(String family) {
-        this.family = family;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public void setMammal(boolean mammal) {
-        isMammal = mammal;
-    }
 }
